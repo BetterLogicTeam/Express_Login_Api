@@ -1,6 +1,6 @@
 const express = require('express')
 const {mongoose } = require('mongoose')
-const {Usermodel} = require('./model/User')
+const User = require('./model/User')
 const moongoose =require('mongoose')
 const cors = require('cors')
 const bodyParser = require('body-parser')
@@ -19,16 +19,28 @@ app.use(bodyParser.json());
 
 app.get('/', (req, res) => res.json({usernmae:'Tayyab',password:'abc'}))
 app.post('/signin',(req,res)=>{
-    console.log(req.body)
-    Usermodel.find({email: req.body.email , password : req.body.password})
-    .then(result => {        
-        if(result.length == 0)
+    // console.log(req.body)
+    // let {email, password} = req.body;
+
+    User.find({email: req.body.email , password : req.body.password})
+    .then(result => { 
+        console.log('result', result)
+        if(result.length != 0)
         {
-            res.status(400).send()
+            res.status(400).send({
+                success:true,
+                message:"user found",
+                data:result
+            })
         }
         else{  
-            SignedUser = result;       
-            res.status(200).send()
+            SignedUser = result;    
+            console.log("User Login",SignedUser);   
+            res.status(200).send({
+                success:false,
+                message:"user not found",
+                data:result
+            })
         }
     })
     .catch(err=>{
@@ -37,15 +49,19 @@ app.post('/signin',(req,res)=>{
     })
 })
 
-app.post('/signup',(req,res)=>{
-    Usermodel.find({email:req.body.email})
+app.post('/signup', async(req,res)=>{
+   await User.find({email:req.body.email})
     .then(result => {        
-        console.log(result)
+        console.log('result', result.length)
         if(result.length == 0)
         {
-            Usermodel.insertMany(req.body)
+            User.insertMany(req.body)
             .then(result => {        
-                res.status(200).send('Account Created')
+                res.status(200).send({
+                    success:true,
+                    message:"account created",
+                    data:result
+                })
             })
             .catch( error => {
                 res.status(400).send('Some Error')
