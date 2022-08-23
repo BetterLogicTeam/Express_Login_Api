@@ -79,8 +79,9 @@ app.post('/signup', async(req,res)=>{
    
 })
 
+let url = process.env.PORT || 8000;
 
-app.listen(8000,()=>{
+app.listen(url,()=>{
     console.log("Lisning the port 8000");
 })
 
