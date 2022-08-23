@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => res.json({usernmae:'Tayyab',password:'abc'}))
 app.post('/signin',(req,res)=>{
     console.log(req.body)
-    UserModel.find({email: req.body.email , password : req.body.password})
+    Usermodel.find({email: req.body.email , password : req.body.password})
     .then(result => {        
         if(result.length == 0)
         {
@@ -38,12 +38,12 @@ app.post('/signin',(req,res)=>{
 })
 
 app.post('/signup',(req,res)=>{
-    UserModel.find({email:req.body.email})
+    Usermodel.find({email:req.body.email})
     .then(result => {        
         console.log(result)
         if(result.length == 0)
         {
-            UserModel.insertMany(req.body)
+            Usermodel.insertMany(req.body)
             .then(result => {        
                 res.status(200).send('Account Created')
             })
