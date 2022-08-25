@@ -14,12 +14,7 @@ const dbUrl='mongodb+srv://Tayyabali:452245@user.syqxubb.mongodb.net/?retryWrite
  })
 
 
- let users =[{
-    id: "",
-    image: "",
-    price : "",
-    title: ""
-}];
+ let users =[];
  app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
