@@ -15,10 +15,10 @@ const dbUrl='mongodb+srv://Tayyabali:452245@user.syqxubb.mongodb.net/?retryWrite
 
 
  let users =[{
-    id: 1,
-    image: "John Doe",
-    price : 23,
-    title: "john@doe"
+    id: "",
+    image: "",
+    price : "",
+    title: ""
 }];
  app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }));
