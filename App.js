@@ -14,7 +14,7 @@ const dbUrl='mongodb+srv://Tayyabali:452245@user.syqxubb.mongodb.net/?retryWrite
  })
 
 
- var users =[{
+ let users =[{
     id: 1,
     image: "John Doe",
     price : 23,
@@ -25,11 +25,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/api/Product', (req, res) => res.json(users))
-app.post('/UdateProduct',(req,res)=>{
-    var user = req.body.user;
-    users.push(user);
 
-    return res.send('User has been added successfully');
+app.post('/UdateProduct',(req,res)=>{
+    let user = req.body;
+    console.log("User",req.body);
+    users=[...users,user];
+
+    return res.send(users);
 })
 
 
